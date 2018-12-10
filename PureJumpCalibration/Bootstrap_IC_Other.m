@@ -5,9 +5,6 @@ addpath('./MiscCalibration/');
 
 
 %% Import LOB Data & Parse
-if ~exist('LOB','var')
-    load('../../Data/Parsed/LOB_Parsed_Data_10-11AM.mat')
-end
 
 % dt = 1/3600; % Data time interval in hours (essentially only needed for mean parameter scale)
 dt = 1;
@@ -16,6 +13,11 @@ startTime = 10; % Window from 10am
 endTime = 11;   % to 11am
 
 if ~exist('X','var') || 1
+    
+    if ~exist('LOB','var')
+        load('../../Data/Parsed/LOB_Parsed_Data_10-11AM.mat')
+    end
+    
     % Get all of the midprices between the start and end time
     
     startInd = (startTime-9.5)*3600;

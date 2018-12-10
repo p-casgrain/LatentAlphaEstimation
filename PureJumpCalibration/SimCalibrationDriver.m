@@ -1,3 +1,7 @@
+% This script simulates the Pure-Jump Latent alpha process and tests to see
+% if the EM procedure can accurately recover the parameters that generated
+% it.
+
 %% Add to path
 addpath('./Tools/');
 addpath('./PoissonFunctions_mex/');

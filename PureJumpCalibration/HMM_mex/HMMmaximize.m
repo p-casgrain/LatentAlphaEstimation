@@ -141,7 +141,7 @@ while relTol( reltol,[Q(:).',nu(:).',paramarray], [oldQ(:).',oldnu(:).',oldparam
     end
     
     %%  Store Values to Disk every 25 optim. steps
-%     if ~mod(optimcount,0)
+%     if ~mod(optimcount,25)
 %         OutParams.mu = mu; OutParams.kappa = kappa;
 %         OutParams.ThetaValues = theta;
 %         OutParams.Q = Q; OutParams.nu = nu;
