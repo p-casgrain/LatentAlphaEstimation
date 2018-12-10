@@ -2,7 +2,9 @@
 
 *Author: Philippe Casgrain*
 
-*Contact:* <a href="http://safemail.justlikeed.net/" target="_blank"><img src="http://safemail.justlikeed.net/e/bb195a029ece6b0ab575d69c27441081.png" border="0" align="absbottom" title="Email image created with safemail.justlikeed.net"></a>
+
+<img src="http://safemail.justlikeed.net/e/2ede8945d2d6f748d8c73dfb7c0f5e8f.png" border="0" align="absbottom" title="Email image created with safemail.justlikeed.net">
+
 
 
 This collection of MATLAB and C code can be used for the estimation of paramters in a pure-jump latent alpha model via an EM algorithm. For more information on these models and on the estimation algorithm, as well as their use in trading algorithms, see *Casgrain, Jaimungal (2016)*[^fn1].
@@ -41,7 +43,10 @@ Given independent observations of discrete paths of $S_t$, we would like to obta
 
 ## Information on the Code
 
+This repo includes some example price path data in `./Example_Data.mat`.
+The files which run the EM algorithm on example data are contained in the root of `./PureJumpEstimation/`.
 
+Parts of the code are written in C/mex. Before you run the code for the first time, you should compile these files through mex by `cd`-ing to the appropriate folder and running `HMM_makeMex.m` and `HMM_makeMex.m`.
 
 
 [^fn1]: Casgrain, P. and S. Jaimungal (2016, Nov). Trading algorithms with learning in latent alpha models. Mathematical Finance, Forthcoming. [arXiv:1806.04472](https://arxiv.org/abs/1806.04472)
