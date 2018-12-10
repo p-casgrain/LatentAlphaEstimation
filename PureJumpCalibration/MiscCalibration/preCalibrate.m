@@ -1,8 +1,9 @@
 function [ OutParams ] = preCalibrate( X , numstates , dt )
 %PRE_CALIBRATE This function 'pre-calibrates' the pure jump model that will
-%be fully calibrated with the Baum-Welch algorithm. The pre-calibration
-%uses least squares linear regression and the k-means algorithm to compute
-%fit parameters to an approximate model. 
+% be fully calibrated with the EM algorithm. The pre-calibration
+% uses least squares linear regression and the k-means algorithm to compute
+% the parameters of an approximate model, which will serve as a starting
+% point for the EM algorithm
 % X is an MxN array. Each X(m,:) is an independent sequence of observed
 % prices. numstates is a positive integer representing the number of
 % possible states for the HMM.

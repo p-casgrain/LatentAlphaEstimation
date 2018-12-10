@@ -1,12 +1,18 @@
 function [OutParams,post,HMM_l] = HMMmaximize(X, DX, InitParams, reltol, objtol, maxIt,options)
 % HMMmaximize - Implementation of Expectation-Maximization algorithm
 %
-%  in : InitParams = struct with all of the starting parameters
+%  in : X = Price Paths
+%       DX = Price Path Increments
+%       InitParams = struct with all of the starting parameters
+%       reltol = Relative Tolerance of optimization procedure
+%       objtol = Absolute Tolerance of optimization procedure
+%       maxIt = Maximum number of Iterations
+%       options = extra options for intermediate optimization steps
+%
 % out : OutParams = struct with all of the estimated parameters
 %       l = log-likelihood of observed sequence
 %
 % By Philippe Casgrain, 2016
-% Adapted from code by Aurelien Garivier, CNRS & Telecom ParisTech
 
 timestamp = datetime('now','Format','yyyyMMddhhmmss');
 
@@ -46,7 +52,7 @@ oldparamarray = paramarray;
 % Count number of times numerical optim occured
 optimcount = 0;
 
-% Initialize SGD stuff
+% Initialize SGD parameters
 SGDbetam = 0.95;
 SGDbetav = 0.99;
 SGDit = 0;
@@ -56,7 +62,6 @@ alpha = 4e-3; % Base learning rate
 
 % Constraint Matrix
 ConMat = -[diag(ones(1,2*K)),zeros(2*K,K)];
-
 ConVec = zeros(1,2*K) - 1e-4;
 
 % Storing Log-Likelihood
@@ -114,15 +119,6 @@ while relTol( reltol,[Q(:).',nu(:).',paramarray], [oldQ(:).',oldnu(:).',oldparam
         
         loglik_handle = @(y) Pois_Lik_Objective_Merged(y(1:K),y((K+1):(2*K)),y((2*K+1):end),InitParams.Delta,X,DX,post);
         
-%         options = optimoptions( 'fminunc',...
-%             'SpecifyObjectiveGradient',true,...
-%             'CheckGradients',false,...
-%             'Display','off',...
-%             'MaxIterations',maxIter,...
-%             'Algorithm','trust-region');
-% 
-%         paramarray = fminunc(loglik_handle,paramarray,options);
-        
         options = optimoptions( 'fmincon',...
             'SpecifyObjectiveGradient',true,...
             'CheckGradients',false,...
@@ -130,31 +126,6 @@ while relTol( reltol,[Q(:).',nu(:).',paramarray], [oldQ(:).',oldnu(:).',oldparam
             'MaxIterations',maxIter);
         
         paramarray = fmincon(loglik_handle,paramarray,ConMat,ConVec,[],[],[],[],[],options);
-
-
-%         % Stochastic Gradient Descent - Using adam
-%         
-%         % Gradient/Objective Handle
-%         loglik_handle2 = @(y,Ind) Pois_Lik_Objective_Merged(y(1:K),y((K+1):(2*K)),...
-%                                  y((2*K+1):end),InitParams.Delta,X(:,Ind),DX(:,Ind),post(:,:,Ind));
-%                              
-%         % Initialize SGD stuff
-% %         SGDm = 0;
-% %         SGDv = 0;
-% %         SGDit = 0;
-%         
-%         % First Sample Minibatch, each is ~30% of total size
-%         sizeMbatch = floor(0.1*size(X,2));
-%         for j=1:400
-%             SGDit = SGDit + 1;
-%             subInd = randsample(size(X,2),sizeMbatch); % Get minibatch indices
-%             [~,g] = loglik_handle2(paramarray,subInd);
-%             SGDm = SGDm*SGDbetam + (1-SGDbetam)*g;
-%             SGDv = SGDv*SGDbetav + (1-SGDbetav)*g.^2;
-%             alpha_t = alpha*sqrt(1-SGDbetav^SGDit)/(1-SGDbetam^SGDit);
-%             tempStep = paramarray - alpha_t.*(SGDm./sqrt(SGDv + 1e-8)).';
-%             paramarray = proj(tempStep);
-%         end
         
         % Storing current log-likelihood
         HMM_l_old = HMM_l;
@@ -164,7 +135,7 @@ while relTol( reltol,[Q(:).',nu(:).',paramarray], [oldQ(:).',oldnu(:).',oldparam
         mu = paramarray(1:K); kappa = paramarray((K+1):(2*K));
         theta = paramarray((2*K+1):end);
         
-        % Display new parameter value & log likelihoodp
+        % Display new parameter value & log likelihood
 %         disp(strcat(num2str(paramarray),' - Log-Likelihood: ',num2str(sum(log(c(:))))));
         
     end
