@@ -31,7 +31,7 @@ TrueParams.ThetaValues = r_spec(TrueParams.ThetaValues);
 X = reshape( S(:,1:(end-1)) , [Ntrials,Npaths,Ndt-1] ); 
 DX = reshape( diff(S,1,2) , [Ntrials,Npaths,Ndt-1] );
 
-%% Run Viterbi Algorithm
+%% Run Viterbi Algorithm to Obtain Most Likely Path
 
 X = squeeze(X);
 DX = squeeze(DX);
@@ -61,10 +61,10 @@ InitParams = preCalibrate(X,Nstates,dt); % Generate Initial Guesses
 InitParams.mu = InitParams.mu + normrnd(0,0.01,1,Nstates); % Perturb guesses with noise
 InitParams.kappa = InitParams.kappa + normrnd(0,0.01,1,Nstates);
 
-%% Create Empty Cell to fill with Calibrated Parameters
+%% Create Empty Cell to fill with Estimated Parameters
 CalibratedParams = cell(1,Ntrials);
 
-%% Run Repeated Calibration - Parallelized
+%% Run Repeated Estimation
 options.maxIter=30; options.optimskip=50;
 
 timestamp = datetime('now','Format','yyyyMMddhhmmss');
