@@ -1,9 +1,8 @@
 # Documentation for Latent Alpha Model Estimation Code
 
-*Author: Philippe Casgrain*
+*Author: Philippe Casgrain* 
 
-
-<img src="http://safemail.justlikeed.net/e/2ede8945d2d6f748d8c73dfb7c0f5e8f.png" border="0" align="absbottom" title="Email image created with safemail.justlikeed.net">
+Email: <img src="http://safemail.justlikeed.net/e/f5105fb08d53f22bc44ef60f94c8f474.png" border="0" align="center" title="Email image created with safemail.justlikeed.net">
 
 
 

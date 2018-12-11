@@ -5,12 +5,13 @@
 %% Add to path
 addpath('./Tools/');
 addpath('./PoissonFunctions_mex/');
+addpath('./MiscCalibration/')
 addpath('./HMM_mex/');
 
 %% Number of Independent Paths to Simulate and their length
 Ndt = 3601;
 dt = 1;
-Npaths = 249;
+Npaths = 249*2;
 Ntrials = 1;
 
 %% Load in Example Parameters for Simulation
