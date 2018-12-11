@@ -62,8 +62,9 @@ void compute_transition(int M, int n, int k, double* mu, double* kappa, double* 
  */
 
 void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray*prhs[] ){
-    int n, k, M , dims[3];
+    int n, k, M;
     double *mu, *kappa, *theta, *Delta, *X, *DX, *PXTrans;
+    mwSize dims[3];
     
     if (nrhs != 6) mexErrMsgTxt("Six input arguments required.");
     

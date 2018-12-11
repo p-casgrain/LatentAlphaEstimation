@@ -87,10 +87,10 @@ void compute( int M,  int n,  int k, double* mu, double* kappa,
                     *lik -= temp_lik*currPost;
                     
                     /* Properly re-assign elements for gradient */
-                    grad[i] -= temp_grad[0]*currPost; /* mu_i derivative
+                    grad[i] -= temp_grad[0]*currPost; // mu_i derivative
                     grad[k+i] -= temp_grad[1]*currPost; // kappa_i derivative
                     grad[2*k+i] -= temp_grad[2]*currPost; // theta_i derivative
-                    
+
                 }
             }
         }

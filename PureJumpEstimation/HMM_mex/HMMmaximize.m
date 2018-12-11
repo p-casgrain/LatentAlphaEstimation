@@ -21,7 +21,7 @@ timestamp = datetime('now','Format','yyyyMMddhhmmss');
 if nargin<6, maxIt = 100; end
 if nargin<5, objtol = 1e-2; end
 if nargin<4, reltol = 1e-2; end
-if nargin<7, options.optimskip=1;options.maxIter=30; end
+if nargin<7, options.optimskip=50;options.maxIter=30; end
 if ( any(size(InitParams.mu)~=size(InitParams.kappa)) ) || ...
         ( any(size(InitParams.kappa)~=size(InitParams.ThetaValues)) ) ||  ...
         ( size(InitParams.mu,1)~=1 )
@@ -62,7 +62,7 @@ alpha = 4e-3; % Base learning rate
 
 % Constraint Matrix
 ConMat = -[diag(ones(1,2*K)),zeros(2*K,K)];
-ConVec = zeros(1,2*K) - 1e-4;
+ConVec = zeros(1,2*K) - 1e-6;
 
 % Storing Log-Likelihood
 HMM_l = 0;
@@ -119,13 +119,13 @@ while relTol( reltol,[Q(:).',nu(:).',paramarray], [oldQ(:).',oldnu(:).',oldparam
         
         loglik_handle = @(y) Pois_Lik_Objective_Merged(y(1:K),y((K+1):(2*K)),y((2*K+1):end),InitParams.Delta,X,DX,post);
         
-        options = optimoptions( 'fmincon',...
+        opt_options = optimoptions( 'fmincon',...
             'SpecifyObjectiveGradient',true,...
             'CheckGradients',false,...
             'Display','off',...
             'MaxIterations',maxIter);
         
-        paramarray = fmincon(loglik_handle,paramarray,ConMat,ConVec,[],[],[],[],[],options);
+        paramarray = fmincon(loglik_handle,paramarray,ConMat,ConVec,[],[],[],[],[],opt_options);
         
         % Storing current log-likelihood
         HMM_l_old = HMM_l;
@@ -137,7 +137,7 @@ while relTol( reltol,[Q(:).',nu(:).',paramarray], [oldQ(:).',oldnu(:).',oldparam
         
         % Display new parameter value & log likelihood
 %         disp(strcat(num2str(paramarray),' - Log-Likelihood: ',num2str(sum(log(c(:))))));
-        
+        disp(strcat('Iteration: ',num2str(it),' ,  Log-Likelihood: ',num2str(sum(log(c(:))))));
     end
     
     %%  Store Values to Disk every 25 optim. steps

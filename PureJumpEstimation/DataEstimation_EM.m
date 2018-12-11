@@ -20,7 +20,7 @@ DX = diff(X,1,2); % Compute Price Increments
 % This part computes a good guess for the initial parameter values the EM
 % procedure should start at.
 
-InitParams = preCalibrate(X,1,dt);
+InitParams = preCalibrate(X,2,dt);
 
 %% No Hidden State MLE Estimation
 % This part provides another method for computing good initial parameter
@@ -32,7 +32,7 @@ InitParams1D.theta = mean(InitParams.ThetaValues);
 % InitParams.mu = 0.0333;
 % InitParams.kappa = 0.0783;
 
-OutParams1D = onestateMLE(X,DX,InitParams1D);
+% OutParams1D = onestateMLE(X,DX,InitParams1D);
 
 %% Run EM Algorithm
 % This section runs the EM algorithm starting at the initial parameter

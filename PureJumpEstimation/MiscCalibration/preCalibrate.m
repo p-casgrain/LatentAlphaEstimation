@@ -1,6 +1,6 @@
 function [ OutParams ] = preCalibrate( X , numstates , dt )
 %PRE_CALIBRATE This function 'pre-calibrates' the pure jump model that will
-% be fully calibrated with the EM algorithm. The pre-calibration
+% be fully estimated with the EM algorithm. The pre-calibration
 % uses least squares linear regression and the k-means algorithm to compute
 % the parameters of an approximate model, which will serve as a starting
 % point for the EM algorithm
