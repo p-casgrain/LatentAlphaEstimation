@@ -6,7 +6,7 @@ Email: <img src="http://safemail.justlikeed.net/e/f5105fb08d53f22bc44ef60f94c8f4
 
 
 
-This collection of MATLAB and C code can be used for the estimation of paramters in a pure-jump latent alpha model via an EM algorithm. For more information on these models and on the estimation algorithm, as well as their use in trading algorithms, see *Casgrain, Jaimungal (2016)*[^fn1].
+This collection of MATLAB and C code can be used for the estimation of paramters in a pure-jump latent alpha model via an EM algorithm. For more information on these models and on the estimation algorithm, as well as their use in algorithmic trading, see *[Casgrain, Jaimungal (2016)](https://arxiv.org/abs/1806.04472)*[^fn1].
 
 
 *Note:* Much of the C code found in this repository is based on a C/mex implementaton of the Forward-Backward algorithm for classical HMMs by [Aurélien Garivier](https://www.math.univ-toulouse.fr/~agarivie/?q=node/34). The original code for this algorithm and comparisons of differnt implementations [here](https://www.math.univ-toulouse.fr/~agarivie/Telecom/code/index.php).
